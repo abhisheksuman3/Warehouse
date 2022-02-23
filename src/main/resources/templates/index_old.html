@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" href="/image/app.png">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/login.css">
+
+<title>EWS</title>
+
+</head>
+<body class="text-center" >
+  
+  
+
+	<div class="form-signin">
+		<img class="mb-4" src="/image/app.png" >
+		<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+		<label for="inputEmail" class="sr-only">Company Id</label> <input
+			type="text" id="inputUserId" class="form-control"
+			placeholder="Company Id" required > 
+			
+			<label 
+			for="inputPassword" class="sr-only">Password</label> <input style="margin-top: 5px;"
+			type="password" id="inputPassword" class="form-control"
+			placeholder="Password" required>
+
+		<div class="checkbox mb-3">
+			
+			<!-- 
+			<label> <input type="checkbox" value="remember-me"
+				id="inputRemeber"> Remember me
+			</label>
+			 -->
+		</div>
+		<button class="btn btn-lg btn-primary btn-block" type="submit" onclick="login()" id="submit-button">Sign
+			in</button>
+		<p class="mt-5 mb-3 text-muted">Data Upload Module For EWS</p>
+	</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade text-left" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="modal-title">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<script src="/js/jquery-3.2.1.slim.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/apicall.js"></script>
+	<script>
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+	if(!isChrome)
+		alert("For better experience use Chrome browser");
+	
+	$("#inputPassword").keyup(function(event) {
+	    if (event.keyCode === 13) {
+	        $("#submit-button").click();
+	    }
+	});
+	
+	$("#inputUserId").keyup(function(event) {
+	    if (event.keyCode === 13) {
+	        $("#submit-button").click();
+	    }
+	});
+	
+	</script>
+
+</body>
+
+
+</html>

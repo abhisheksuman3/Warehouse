@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" href="/image/app.png">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/neo.css">
+
+<title>EWS</title>
+
+</head>
+<body>
+
+<div style="width: 100%; background: #861F41; height:39px;top: 0px;position: absolute;left:0px" >
+    <img src="/image/header.png" style="height: 100px">
+</div> 
+
+<div class="conainer">
+
+  
+  <div class="segment">
+    <h1><font color="#861F41" size="9px">EWS</font> <font size="5px">Login</font></h1>
+  </div>
+  
+  <label>
+    <input type="text" id="inputUserId" placeholder="Employee Id" style="margin: 10px;width: 300px;border-radius: 10px"/>
+  </label>
+  <label>
+    <input type="password" id="inputPassword" placeholder="Password" style="margin: 10px;width: 300px;border-radius: 10px"/>
+  </label>
+  <button class="red" type="button" onclick="login()" id="submit-button" style="margin: 10px;width: 300px;border-radius: 10px"><i class="icon ion-md-lock" ></i> Log in</button>
+  
+
+</div>
+	
+
+
+<!-- Modal -->
+<div class="modal fade text-left" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="modal-title"><font color="#861F41">Error</font></h5>
+        
+      </div>
+      <div class="modal-body" id="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	<script src="/js/jquery-3.2.1.slim.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/apicall.js"></script>
+	<script>
+	var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+	if(!isChrome)
+		alert("For better experience use Chrome browser");
+	
+	$("#inputPassword").keyup(function(event) {
+	    if (event.keyCode === 13) {
+	        $("#submit-button").click();
+	    }
+	});
+	
+	
+	
+	
+	
+    $("#inputUserId").keyup(function(event) {
+	    if (event.keyCode === 13) {
+	        $("#submit-button").click();
+	    }
+	});
+	</script>
+
+</body>
+
+
+
+
+</html>

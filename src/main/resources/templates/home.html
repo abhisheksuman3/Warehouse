@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/image/app.png">
+
+<title>EWS</title>
+
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/4.0/examples/navbar-static/">
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="navbar-top.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+    <link href="/css/admin.css" rel="stylesheet">
+<link href="/css/fileupload.css" rel="stylesheet">
+<link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<style>
+
+.zoom {
+  
+  transition: transform .2s; /* Animation */
+  
+}
+
+.zoom:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.center1 {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.blink_me {
+	animation: blinker 1s linear infinite;
+}
+
+@
+keyframes blinker { 50% {
+	opacity: 0;
+}
+}
+</style>
+
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4"
+		style="height: 100px">
+		<div
+			style="width: 100%; background: #861F41; height: 39px; top: 0px; position: absolute; left: 0px"
+			id="axisbar">
+			<img src="/image/header.png" style="height: 100px">
+		</div>
+		<a class="navbar-brand" href="#" id="waitid"> <img
+			class="navbar-brand " src="" alt=""><font
+			style="color: cornflowerblue; display: none;">EWS</font></a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse"
+			style="margin-left: 400px; margin-top: 40px">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Home
+						<span class="sr-only">(current)</span>
+				</a>
+				
+				</li>
+				<!-- <li class="nav-item disabled">
+            <a class="nav-link" href="#" onclick="alert('Feature Under Construction')">Upload Plan</a>
+          </li> -->
+          <li class="nav-item disabled" id="apanel" style="display:none">
+            <a class="nav-link " href="/public/admin" >Admin Panel</a>
+          </li>
+			</ul>
+			<div class="form-inline mt-2 mt-md-0">
+				<span class="label label-default"
+					style="margin-right: 20px; color: white" id="sname"></span>
+				<!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+				<button class="btn btn-outline-danger my-2 my-sm-0"
+					onclick="logout()">Logout</button>
+			</div>
+		</div>
+	</nav>
+
+
+
+
+	<!-- ------------------------------------------------------------------------------------------------ -->
+
+	<div class="container" style="margin-bottom: 20px">
+		<div class="row" style="margin-bottom: 30px; margin-top: 30px">
+			<div class="col-md-6">
+				<form method="post" action="/api/fileUpload" id="#">
+					<!-- <div class="form-group files"> -->
+
+
+					<!--  <div class="form-group files color">-->
+					<label>Upload your file to <font color=#861F41><b>EWS</b></font>
+						server (<b>10.0.74.212</b>)
+					</label>
+					<table>
+						<tr>
+							<td>
+								<div>
+									<input type="file" class="form-control" multiple name="files"
+										id="fileinput">
+								</div>
+							</td>
+							<td>
+								<div>
+									<button id="button" style="margin-left: 10px"
+										aria-describedby="tooltip" class="btn btn-secondary"
+										onclick="uploadFile(this)" role="button" type="button">Upload
+										&raquo;</button>
+									
+								</div>
+							</td>
+						</tr>
+					</table>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+
+
+
+
+
+		<!-- ----------------------------------------------------------------------------------------------------- -->
+
+		<table class="container table table-striped table-bordered"
+			style="width: 100%" id="summary-table">
+			<thead>
+				<tr>
+					<th>File name</th>
+					<th>Uploader</th>
+					<th>Upload time</th>
+					<th>Size</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+			<!-- <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </tfoot> -->
+		</table>
+	</div>
+	<!-- Modal Message -->
+	<div class="modal fade text-left" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-title">Error</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<!-- Modal File Loader -------------------------------------------------------------------->
+	<div class="modal fade text-left" id="exampleModal1" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-title1">Upload file to database</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" id="closeTemp">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modal-body1">
+				
+				
+				<table>
+				<tr><td>
+				<label>Select table to load : </label></td><td>
+				<div class="dropdown" style="margin-left: 20px">
+				  <button class="btn dropdown-toggle"  type="button" id="dropdownTable" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Table
+				  </button>
+				  <input type="hidden" id="dropdownTable_hidden" />
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown1">
+				   
+				  </div>
+				  
+				</div></td>
+				
+				
+				<td style="display: none;" id="template">
+				
+				<table id="templateDownloader"><tr  class="zoom"><td>
+				<img src='/image/excel.png' width='35px' class='center1' style="margin-left: 10px;cursor: pointer;">
+				</td><td>
+				<i style=" font-size: x-small;cursor: pointer;">download template</i>
+				</td>
+				</tr>
+				</table>
+				
+				</td>
+				</tr>
+				<tr><td colspan="3" style="font-size: small;color: lightslategray;">
+				<div id="table_message"></div>
+				</td>
+				</tr>
+				</table>
+				
+				</div>
+				<div class="modal-footer">
+				<font id="uploading_wait_font" style="display: none;font-family: monospace;">Please Wait.. </font>
+				<img src='/image/wait.gif' style="height: 38px;display: none" id="uploading_wait">
+				<button type="button" class="btn btn-primary" id="uploadToDb" disabled
+						>Upload</button>
+					<button type="button" class="btn btn-secondary" id="uploadToDbClose"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- <script src="/js/jquery-3.2.1.slim.min.js"></script> -->
+	<script src="/js/jquery-3.4.1.min.js"></script>
+
+	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/apicall.js"></script>
+	<script>
+	
+	if(!sessionStorage.token)
+	{
+		window.location=loginPage;
+	}
+	else
+		{
+		getFileList();
+		
+		$('#summary-table').dataTable({
+		    "oLanguage": {
+		        "sEmptyTable": "No File Present"
+		    }
+		});
+		}
+	
+    
+    document.getElementById("sname").innerHTML=sessionStorage.name;
+	if(sessionStorage.role=="ADMIN")
+		document.getElementById("apanel").style.display="block";
+	
+	
+	function selectTable(x,id,name)
+	{
+		document.getElementById("uploadToDb").disabled=false;
+		document.getElementById("templateDownloader").onclick=function(){downloadTemplateFile(id,name)};
+		getDynamicQueryOutput(id);
+		document.getElementById("dropdownTable").innerHTML=x.innerHTML;
+		document.getElementById("template").style.display = "block";
+		document.getElementById("dropdownTable_hidden").value=id;
+		
+		
+	}
+
+	</script>
+
+
+</body>
+</html>

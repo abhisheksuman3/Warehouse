@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="/image/app.png">
+
+<title>EWS</title>
+
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/4.0/examples/navbar-static/">
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="navbar-top.css" rel="stylesheet">
+
+<link href="/css/fileupload.css" rel="stylesheet">
+<link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+    <link href="/css/admin.css" rel="stylesheet">
+</head>
+
+<style>
+.center1 {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.blink_me {
+	animation: blinker 1s linear infinite;
+}
+
+@
+keyframes blinker { 50% {
+	opacity: 0;
+}
+}
+</style>
+
+
+<body>
+
+	<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark mb-4"
+		style="height: 100px">
+		<div
+			style="width: 100%; background: #861F41; height: 39px; top: 0px; position: absolute; left: 0px"
+			id="axisbar">
+			<img src="/image/header.png" style="height: 100px">
+		</div>
+		<a class="navbar-brand" href="#" id="waitid"> <img
+			class="navbar-brand " src="" alt=""><font
+			style="color: cornflowerblue; display: none;">EWS</font></a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarCollapse" aria-controls="navbarCollapse"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarCollapse"
+			style="margin-left: 400px; margin-top: 40px">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item disabled "><a class="nav-link" href="/public/home">Home
+						
+				</a></li>
+			<li class="nav-item active">
+            <a class="nav-link " href="#" >Admin Panel</a>
+          </li>
+			</ul>
+			<div class="form-inline mt-2 mt-md-0">
+				<span class="label label-default"
+					style="margin-right: 20px; color: white" id="sname"></span>
+				<!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+				<button class="btn btn-outline-danger my-2 my-sm-0"
+					onclick="logout()">Logout</button>
+			</div>
+		</div>
+	</nav>
+
+
+<div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column" id="ullist">
+              
+              
+              <li class="nav-item">
+                <a class="nav-link active" href="#" onclick="changeDashboard('au',this)">
+                  <span data-feather="user-plus"></span>
+                  Add User <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="changeDashboard('du',this)">
+                  <span data-feather="user-x"></span>
+                  Delete User
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="changeDashboard('ed',this)">
+                  <span data-feather="shield"></span>
+                  Enable / Disable
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="changeDashboard('cr',this)">
+                  <span data-feather="users"></span>
+                  Change Role
+                </a>
+              </li>
+              <li class="nav-item">
+              
+                <a class="nav-link" href="#" onclick="changeDashboard('at',this)">
+                  <span data-feather="check-square"></span>
+                  Approve Request
+                </a>
+              </li>
+              </ul>
+    
+  </div>
+  </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" id="mainl">
+          
+          
+          
+          <!-- ADD USER -->
+          <div id="adduser" style="display: block">
+			<h1 class="h2">Add User</h1>
+			
+			
+			  <div class="form-group">
+			    <label for="empid">Employee Id</label>
+			    <input  style="width: 300px" class="form-control" id="empid" aria-describedby="emailHelp" placeholder="Example: 187376">
+			    
+			  </div>
+			  <div class="form-group">
+			  
+			  <label for="dropdownMenuButton">Role To Assign</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonUserAdd" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Role
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonUserAdd" >
+				    <a class="dropdown-item" href="#" onclick="document.getElementById('dropdownMenuButtonUserAdd').innerHTML='TEAM'">TEAM</a>
+				    <a class="dropdown-item" href="#" onclick="document.getElementById('dropdownMenuButtonUserAdd').innerHTML='ADMIN'">ADMIN</a>
+				  </div>
+				</div>
+			    
+			    
+			  </div>
+			  <div class="form-check" style="margin-bottom: 5px">
+			    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+			    <label class="form-check-label" for="exampleCheck1">Active</label>
+			  </div>
+			  <button class="btn btn-primary" onclick="createUserNew()">Add User</button>
+			
+          </div>
+          <!-- ADD USER END-->
+          
+          
+          <!-- DELETE USER -->
+          <div id="deleteuser" style="display:none">
+			<h1 class="h2">Delete User</h1>
+			
+			
+			  <div class="form-group">
+			  
+			  <label for="dropdownMenuButtonUserDel">Select Employee To Delete</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" disabled type="button" id="dropdownMenuButtonUserDel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Employee
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="dropdown1">
+				    <!-- <a class="dropdown-item" href="#" onclick="selectEmp(this)">187376</a>
+				    <a class="dropdown-item" href="#" onclick="selectEmp(this)">4577</a> -->
+				  </div>
+				</div>
+			    
+			    
+			  </div>
+			  
+			  <button type="submit" class="btn btn-primary" onclick="deleteEmployee()">Delete User</button>
+			
+          </div>
+          <!-- DELETE USER END-->
+          
+          <!-- ENABLE DISABLE USER -->
+          <div id="eduser" style="display: none">
+			<h1 class="h2">Enable / Disable User</h1>
+			
+			
+			  <div class="form-group">
+			  
+			  <label for="dropdownMenuButtonedl">Select Employee To Alter</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" disabled type="button" id="dropdownMenuButtonedl" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Employee
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtondl" id="dropdown2">
+				  </div>
+				</div>
+			    
+			    
+			  </div>
+			  
+			  <button  disabled id="dropdownMenuButtonedlButton" class="btn btn-primary" onClick="disableEnableEmployee(this)">Select Emp</button>
+			
+          </div>
+          <!-- ENABLE DISABLE USER END-->
+          
+          <!-- APPROVE USER -->
+          <div id="atuser" style="display: none">
+			<h1 class="h2">Approve Request</h1>
+			
+			
+			  <div class="form-group">
+			  
+			  <label for="dropdownMenuButtonedlds">Select Employee</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" disabled type="button" id="dropdownMenuButtonedlt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Employee
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtondlt" id="dropdown22">
+				  </div>
+				</div>
+			    
+			    
+			  </div>
+			  
+			  <button  disabled id="dropdownMenuButtonedlButtond" class="btn btn-primary" onClick="ApproveEmployee(this)">Approve Emp</button>
+			
+          </div>
+          <!-- APPROVE USER END-->
+          
+          
+          
+          <!-- MODIFY USER -->
+          <div id="modifyuser" style="display: none">
+			<h1 class="h2">Modify Role</h1>
+			
+			
+			  <div class="form-group">
+			    <label for="empid">Employee Id</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" type="button" disabled id="dropdownMenuButtonmu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Employee
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonmu" id="dropdown3">
+				  </div>
+				</div>
+			  </div>
+			  <div class="form-group">
+			  
+			  <label for="dropdownMenuButton">Role To Assign</label>
+			    <div class="dropdown">
+				  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButtonUserAddmua" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select Role
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonUserAddmua">
+				    <a class="dropdown-item" href="#" onclick="document.getElementById('dropdownMenuButtonUserAddmua').innerHTML='TEAM'">TEAM</a>
+				    <a class="dropdown-item" href="#" onclick="document.getElementById('dropdownMenuButtonUserAddmua').innerHTML='ADMIN'">ADMIN</a>
+				  </div>
+				</div>
+			    
+			    
+			  </div>
+			  
+			  <button class="btn btn-primary" onclick="modifyEmployeeRole()">Modify Role</button>
+			
+          </div>
+          <!-- MODIFY END-->
+          
+          
+        </main>
+      </div>
+    </div>
+
+
+	
+	
+	
+	
+	<!-- Modal -->
+	<div class="modal fade text-left" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modal-title">Error</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modal-body">...</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- <script src="/js/jquery-3.2.1.slim.min.js"></script> -->
+	<script src="/js/jquery-3.4.1.min.js"></script>
+
+	<script src="/js/jquery.dataTables.min.js"></script>
+	<script src="/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Icons -->
+    <script src="/css/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+	<script src="/js/apicall.js"></script>
+	<script src="/js/adminapicall.js"></script>
+	<script>
+	
+	/* 	if(!sessionStorage.token)
+	{
+		window.location=loginPage;
+	}
+	else
+		{
+		
+		}
+	 */
+	document.getElementById("sname").innerHTML=sessionStorage.name;
+	
+	 function selectEmp(x)
+	 {
+		 //console.log(x);
+		 document.getElementById("dropdownMenuButtonUserDel").innerHTML=x.innerHTML;
+	 }
+	 
+	 function selectEmpAut(x)
+	 {
+		 //console.log(x);
+		 document.getElementById("dropdownMenuButtonedlt").innerHTML=x.innerHTML;
+		 document.getElementById("dropdownMenuButtonedlButtond").disabled=false;
+	 }
+	 
+	 function selectEmpE(x,v)
+	 {
+		 //console.log(x);
+		 document.getElementById("dropdownMenuButtonedl").innerHTML=x.innerHTML;
+		 let dom=document.getElementById("dropdownMenuButtonedlButton");
+		 dom.disabled = false;
+		 if(v==1)
+			 {
+			 dom.innerHTML='Disable';
+			 }
+		 else
+			 {
+			 dom.innerHTML='Enable';
+			 }
+		 
+	 }
+	 
+	 function selectEmpmu(x,v)
+	 {
+		 //console.log(x);
+		 document.getElementById("dropdownMenuButtonmu").innerHTML=x.innerHTML;
+		 document.getElementById("dropdownMenuButtonUserAddmua").innerHTML=v;
+	 }
+	 
+	 function changeDashboard(flag,y)
+	 {
+		 let x=document.getElementById("ullist").childNodes;
+		
+		 for(let i=1;i<=x.length;i++)
+			{
+			 try{
+			 x[i].childNodes[1].classList.remove("active");
+			 }catch(e)
+			 {
+				 
+			 }
+			}
+		 y.classList.add("active");
+		 
+		 
+		 let z=document.getElementById("mainl").childNodes;
+		 //console.log(z);
+		 for(let i=1;i<=z.length;i++)
+			 {
+			 
+			 try{
+				 z[i].style.display="none";
+			 }catch(e)
+			 {
+				 
+			 }
+			 }
+		 /*au du ed cr, adduser modifyuser eduser deleteuser*/
+		 
+		 if(flag=='au')
+			 {
+			 document.getElementById('adduser').style.display="block";
+			 }
+		 else if
+		 (flag=='cr')
+		 {
+		 document.getElementById('modifyuser').style.display="block";
+		 }
+		 else if
+		 (flag=='du')
+		 {
+		 document.getElementById('deleteuser').style.display="block";
+		 }
+		 else if
+		 (flag=='ed')
+		 {
+		 document.getElementById('eduser').style.display="block";
+		 }
+		 else if
+		 (flag=='at')
+		 {
+		 document.getElementById('atuser').style.display="block";
+		 }
+		 else
+			 {
+			 document.getElementById('adduser').style.display="block";
+			 }
+	 }
+	
+	 if(!sessionStorage.token || sessionStorage.role!="ADMIN")
+		{
+			window.location=homePage;
+		}
+	 
+	 getSetUsers();
+	 getSetUnauthUsers();
+	 if(sessionStorage.role=="ADMIN")
+			document.getElementById("apanel").style.display="block";
+	 
+	 
+	 
+	</script>
+	
+
+
+</body>
+</html>
